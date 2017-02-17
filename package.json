@@ -1,0 +1,31 @@
+{
+  "name": "websockets-chat-server",
+  "version": "1.0.0",
+  "description": "Chat assignment for 590",
+  "main": "server.js",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "pretest": "eslint ./src --fix",
+    "test": "echo \"Tests complete\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LZetterlund/websockets-chat-starter.git"
+  },
+  "author": "Luke Zett",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LZetterlund/websockets-chat-starter/issues"
+  },
+  "homepage": "https://github.com/LZetterlund/websockets-chat-starter#readme",
+  "dependencies": {
+    "socket.io": "^1.7.3"
+  },
+  "devDependencies": {
+    "eslint": "^3.15.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.0"
+  }
+}

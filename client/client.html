@@ -10,7 +10,61 @@
          online at your node.js address under /socket.io/socket.io.js 
          You can disable that on the server if desired
     -->
+    <script src="/socket.io/socket.io.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+    <script type="text/babel">
+        const connectSocket = (e) => {
+            const message = document.querySelector("#message");
+            const chat = document.querySelector("#chat");
+            const socket = io.connect();
+            const send = document.querySelector("#send");
+            send.addEventListener('click', function(){
+                socket.emit('msgToServer', { msg: message.value});
+                message.value = '';
+                return false;
+            });   
+
+            socket.on('connect', () => {
+                console.log('connecting');
+                
+                let user = document.querySelector("#username").value;
+        
+                if(!user) {
+                    user = 'unknown';
+                }
+            
+                socket.emit('join', { name: user});
+
+            
+            });
+
+            socket.on('disconnect', (data) => {
+                 console.log(data.name + " disconnected");
+            });
+
+            socket.on('msg', (data) => {
+                if(data.roll != undefined){
+                    chat.value +=  data.name + " rolled a " + data.roll + " on a 20 sided die." + "\n";
+                    console.log(data.name + ": " + data.msg + " " + data.roll);
+                }
+                else {
+                    chat.value +=  data.name + ": " + data.msg + "\n";
+                    console.log(data.name + ": " + data.msg);
+                }
+            });
+        };
+
+
+
+        const init = () => {
+            const chat = document.querySelector("#chat");
+            chat.value = "Enter a username and press connect to join. \n"
+            const connect = document.querySelector("#connect");
+            connect.addEventListener('click', connectSocket);
+        };
+
+        window.onload = init;
+    </script>
 	<style>
 		textarea {
 			display: block;
